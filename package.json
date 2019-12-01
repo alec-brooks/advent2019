@@ -19,6 +19,7 @@
   "homepage": "https://github.com/alec-brooks/advent2019#readme",
   "devDependencies": {
     "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.14",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "eslint": "^6.1.0",
