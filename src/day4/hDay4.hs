@@ -3,12 +3,6 @@ import Data.List
 validPassword :: [Int] -> Bool
 validPassword password = (onlyIncrease password) && (containsRepeatingDigits password)
 
-arrayToNumber :: [Int] -> Int
-arrayToNumber [a,b] = a*10 + b
-
-slice :: Int -> Int -> [a] -> [a]
-slice from to xs = take (to - from + 1) (drop from xs)
-
 allTheSame :: (Eq a) => [a] -> Bool
 allTheSame xs = and $ map (== head xs) (tail xs)
 
@@ -32,10 +26,22 @@ digits n = map (\x -> read [x] :: Int) (show n)
 
 countValidPasswords :: [[Int]] -> Int
 countValidPasswords = 
-  foldl (\count p -> if (validPassword p) then count + 1 else count) 0
+  foldl (\count p -> if (validPassword p) then count + 1 else count) 0  
+  
+filterByLength :: Ord a => (Int -> Bool) -> [a] -> [[a]]
+filterByLength p = filter (p . length) . group . sort
+
+unique :: Ord a => [a] -> [a]
+unique = concat . filterByLength (==1)
+
+windows m = foldr (zipWith (:)) (repeat []) . take m . tails
+
 main :: IO ()
 main = do
-  print $ countValidPasswords $ map digits [353096..843212]
+  print $ map (unique . allPairs) $ windows 4 [1,1,1,4,5,6]
+  -- print $ unique $ allPairs [1,1,2,2,1,1]
+  -- print $ unique $ allPairs [1,2,2,2,4,1]
+  -- print $ countValidPasswords $ map digits [353096..843212]
   -- print $ validPassword [1,1,1,1,1,1]
   -- print $ validPassword [2,2,3,4,5,0]
   -- print $ validPassword [1,2,3,7,8,9]
