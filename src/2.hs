@@ -5,14 +5,15 @@ memoryString = "1,0,0,3,1,1,2,3,1,3,4,3,1,5,0,3,2,6,1,19,1,5,19,23,2,6,23,27,1,2
 
 main :: IO ()
 main = do
-  stdIn <- getContents
-  let memory = map read $ wordsWhen (==',') memoryString
-  --let memory = [1, 0, 0, 0, 99]
-  --let memory = [1, 1, 1, 4, 99, 5, 6, 0, 99]
+  --let memory = map read $ wordsWhen (==',') memoryString
+  let memory = [1, 0, 0, 0, 99]
+  let memory = [2,3,0,3,99]
+  let memory = [2,4,4,5,99,0]
+  let memory = [1, 1, 1, 4, 99, 5, 6, 0, 99]
   -- Part 1
-  print $ intCode 0 $ restoreMemory memory 12 2
-  let possibleNounVerb = [ (x,y) | x<-[0..99], y<-[0..99] ]
-  let restoredMemories = map (uncurry $ restoreMemory memory) possibleNounVerb
+  print $ intCode 0 0 (memory, [])
+  --let possibleNounVerb = [ (x,y) | x<-[0..99], y<-[0..99] ]
+  --let restoredMemories = map (uncurry $ restoreMemory memory) possibleNounVerb
   --print $ map (take 3) restoredMemories
-  print $ filter (\x -> x!!0 == 19690720) $  map (intCode 0) restoredMemories
+  --print $ filter (\x -> x!!0 == 19690720) $  map (intCode 0) restoredMemories
 
